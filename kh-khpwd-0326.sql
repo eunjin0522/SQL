@@ -855,3 +855,18 @@ SELECT DEPT_CODE, JOB_CODE, MANAGER_ID, FLOOR(AVG(SALARY))
 SELECT DEPT_CODE, JOB_CODE, MANAGER_ID, FLOOR(AVG(SALARY)) FROM EMPLOYEE GROUP BY(DEPT_CODE, JOB_CODE, MANAGER_ID);
 SELECT DEPT_CODE, 'j', MANAGER_ID, FLOOR(AVG(SALARY)) FROM EMPLOYEE GROUP BY(DEPT_CODE, MANAGER_ID);
 SELECT 'd', JOB_CODE, MANAGER_ID, FLOOR(AVG(SALARY)) FROM EMPLOYEE GROUP BY(JOB_CODE, MANAGER_ID);
+
+
+-----------------0328
+--natural join
+--두테이블이 같는 공통 컬럼에 대해 하나의 컬럼으로 나타낸다
+select *
+from employee
+natural join department
+order by 1 asc;
+
+
+--오류 보고 -ORA-00001: 무결성 제약 조건(KH.EMPLOYEE_PK)에 위배됩니다
+update employee
+set emp_id = 290
+where emp_name='홍길동';
