@@ -133,7 +133,7 @@ select sysdate from dual where sysdate >to_date('2024-03-28 10:36:24','yyyy-mm-d
 --to_date의 값보다 sysdate가 크다면 sysdate를 출력해줘
 select sysdate,a from (select sysdate a from dual) where sysdate >to_date('2024-03-28 10:36:24','yyyy-mm-dd hh24:mi:ss');
 
-
+---------inline-view
 -----rownum : 페이징을 위해 사용된다
 select ename,sal,rownum
 from emp
@@ -144,5 +144,21 @@ order by sal desc;
 select t1.*,rownum r2  --t1테이블의 모든 컬럼과 r2를 출력해줘
 from (select ename,sal,rownum from emp order by sal desc)t1;
 
+--입사일이 빠른 1-5
+select rownum r2,t1.*  --t1테이블의 모든 컬럼과 r2를 출력해줘
+from (select ename,hiredate from emp order by hiredate asc)t1
+where rownum <=5; --where절에서 하나하나 차곡차곡 쌓아서 수행하기에 가능
 
+--1-6
+select *
+from(select t1.*,rownum r2 
+    from (select ename,hiredate from emp order by hiredate asc)t1 )t2
+where r2 between 6 and 11;
+--rownum은 서브쿼리가 두 개라고 생각하는게 편하다
+
+-------with
+with t1 as(select ename,hiredate,rownum r1 from emp order by hiredate asc)
+select * from t1;
+
+------rank() over : 분석 함수
 
