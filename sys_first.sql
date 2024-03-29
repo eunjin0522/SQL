@@ -11,12 +11,7 @@ create user kh2 identified by khpwd;
 grant connect, resource, unlimited tablespace to kh,kh2;
 --resource : 개체 생성, 삭제 권한부여
 create user kh3 identified by khpwd;
---암기
---create user 유저명 identified by 비밀번호;  : 계정 생성
---grant 권한명, 롤명,... to 유저명1,유저명2...,롤명; 
---revoke 뺏고싶은 권한 명, 롤명 ... from 유저명or 롤명,... : 권한 뺏기
---connect : 접속관련 권한들로 만들어진 롤명
---resource : 테이블(객체)관련 권한들로 만들어진 롤명
+
 
 create user ej identified by ejpwd;
 grant connect, resource, unlimited tablespace to ej;
@@ -33,3 +28,11 @@ grant connect, resource, unlimited tablespace to  quiz;
 
 create user chun identified by chunpwd;
 grant connect,resource,unlimited tablespace to chun;
+
+grant create view to scott,kh,kh2; --view만들 권한 부여
+--암기
+--create user 유저명 identified by 비밀번호;  : 계정 생성
+--grant 권한명, 롤명,... to 유저명1,유저명2...,롤명; 
+--revoke 뺏고싶은 권한 명, 롤명 ... from 유저명or 롤명,... : 권한 뺏기
+--connect : 접속관련 권한들로 만들어진 롤명
+--resource : 테이블(객체)관련 권한들로 만들어진 롤명
