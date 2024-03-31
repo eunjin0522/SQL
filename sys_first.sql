@@ -30,6 +30,7 @@ create user chun identified by chunpwd;
 grant connect,resource,unlimited tablespace to chun;
 
 grant create view to scott,kh,kh2; --view만들 권한 부여
+grant create view to chun;
 --암기
 --create user 유저명 identified by 비밀번호;  : 계정 생성
 --grant 권한명, 롤명,... to 유저명1,유저명2...,롤명; 
