@@ -138,7 +138,7 @@ SELECT 순위, EMP_NAME, SALARY
 FROM EMPLOYEE
  ORDER BY SALARY DESC);
 --18
---연산 낭비 --하수
+--연산 낭비 --하수  -- 0.008초
 select student_no, student_name
 from (
     select student_no, student_name,rank()over(order by avg(point) desc) as 순위
@@ -150,7 +150,7 @@ from (
     order by 순위)
 where 순위 ='1';
 
---연산낭비를 하지 않음
+--연산낭비를 하지 않음  -- 0.001초
 select student_no, student_name
 from (
     select student_no, student_name,rank()over(order by avg(point) desc) as 순위
