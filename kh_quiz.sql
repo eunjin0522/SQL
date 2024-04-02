@@ -34,3 +34,14 @@ select emp_name
 from employee
 ;
 
+--25.EMPLOYEE테이블에서 직원들의 입사일로부터 년도만 가지고 각 년도별 입사 인원수 조회
+--where,groupy by, having은 행을 뽑아내는 일이다 
+select count(*)"전체직원수"
+,count(decode(extract(year from hire_date),'2001',0,null)) "2001년"
+,count(decode(extract(year from hire_date),'2002',0,null)) "2002년"
+,count(decode(extract(year from hire_date),'2003',0,null)) "2003년"
+,count(decode(extract(year from hire_date),'2004',0,null)) "2004년"
+from employee
+;
+select count(*) from employee where extract(year from hire_date)='2001';
+select count(decode(extract(year from hire_date),'2001',0,null)) from employee;

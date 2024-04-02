@@ -123,7 +123,7 @@ having count(*) >1
 order by student_name
 ;
 
---15. rollup
+--15. rollup 
 select substr(term_no,1,4) as 년도,substr(term_no,5) as 학기, round(avg(point),1) as "평점"
 from tb_student
 join tb_grade using(student_no)

@@ -132,13 +132,13 @@ order by 2
 ;
 
 
-SELECT순위, EMP_NAME, SALARY
- FROM(SELECTEMP_NAME, SALARY,
+SELECT 순위, EMP_NAME, SALARY
+ FROM(SELECT EMP_NAME, SALARY,
  RANK() OVER(ORDER BY SALARY DESC) AS 순위
-FROMEMPLOYEE
- ORDER BYSALARY DESC)
+FROM EMPLOYEE
+ ORDER BY SALARY DESC);
 --18
---연산 낭비
+--연산 낭비 --하수
 select student_no, student_name
 from (
     select student_no, student_name,rank()over(order by avg(point) desc) as 순위
@@ -160,7 +160,7 @@ from (
     where department_no=(select department_no from tb_department where department_name ='국어국문학과')
     group by student_no, student_name
     order by 순위)
-where 순위 ='1';
+where rownum =1;
 --19
 select department_name "계열 학과명", round(avg(point),1) 전공평점
 from tb_department
@@ -170,9 +170,10 @@ where category = (
     select category
     from tb_department
     where department_name ='환경조경학과'
-);
+)
 group by department_name
 order by 1;
+
 select *
 from tb_department
 where department_name ='환경조경학과';
