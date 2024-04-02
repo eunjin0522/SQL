@@ -131,7 +131,7 @@ where department_no=(select department_no from tb_student where student_name='�
 order by 2
 ;
 
-
+-------rank
 SELECT 순위, EMP_NAME, SALARY
  FROM(SELECT EMP_NAME, SALARY,
  RANK() OVER(ORDER BY SALARY DESC) AS 순위
