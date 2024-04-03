@@ -160,5 +160,8 @@ where r2 between 6 and 11;
 with t1 as(select ename,hiredate,rownum r1 from emp order by hiredate asc)
 select * from t1;
 
-------rank() over : 분석 함수
+--&의 기능
+select * from dept;
+insert into dept values(51,'KH','se&oul');
+set define off;
 
