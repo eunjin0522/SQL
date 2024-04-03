@@ -1,0 +1,177 @@
+set serveroutput ON;
+select bonus,emp_id from employee;
+
+DECLARE
+ TYPE EMP_RECORD_TYPE IS RECORD (
+ EMP_ID EMPLOYEE.EMP_ID%TYPE,
+ EMP_NAME EMPLOYEE.EMP_NAME%TYPE,
+ DEPT_TITLE DEPARTMENT.DEPT_TITLE%TYPE,
+ JOB_NAME JOB.JOB_NAME%TYPE
+ );
+    
+    EMP_RECORD EMP_RECORD_TYPE;
+BEGIN
+    SELECT emp_id, emp_name, dept_title, job_name into EMP_RECORD
+    FROM employee e, department d , job j
+    where e.dept_code = d.dept_id
+        and e.job_code = j.job_code
+        and emp_name ='&emp_name';
+        DBMS_OUTPUT.PUT_LINE('사번: ' || EMP_RECORD.EMP_ID);
+ DBMS_OUTPUT.PUT_LINE('이름: ' || EMP_RECORD.EMP_NAME);
+ DBMS_OUTPUT.PUT_LINE('부서: ' || EMP_RECORD.DEPT_TITLE);
+ DBMS_OUTPUT.PUT_LINE('직급: ' || EMP_RECORD.JOB_NAME);
+END;
+/
+-----선택문
+DECLARE
+    V_EMPID EMPLOYEE.EMP_ID%TYPE;
+    V_ENAME EMPLOYEE.EMP_NAME%TYPE;
+    V_SALARY EMPLOYEE.SALARY%TYPE;
+    V_BONUS EMPLOYEE.BONUS%TYPE;
+BEGIN
+    SELECT emp_id, emp_name, salary,nvl(bonus,0) 
+    INTO V_EMPID,V_ENAME,V_SALARY,V_BONUS
+    from employee
+    where EMP_ID ='&EMP_ID';
+    
+    DBMS_OUTPUT.PUT_LINE('사번: ' || V_EMPID);
+    DBMS_OUTPUT.PUT_LINE('이름: ' || V_ENAME);
+    DBMS_OUTPUT.PUT_LINE('급여: ' || V_SALARY);
+    
+    IF(V_BONUS =0)
+        THEN DBMS_OUTPUT.PUT_LINE('보너스는 없숨당~');
+    END IF;
+    DBMS_OUTPUT.PUT_LINE('보너스율 : '||V_BONUS*100||'%');
+END;
+/
+
+-- IF ~ THEN ~ ELSE ~ END IF
+DECLARE
+    V_EMPID EMPLOYEE.EMP_ID%TYPE;
+    V_ENAME EMPLOYEE.EMP_NAME%TYPE;
+    V_DEPT_TITLE DEPARTMENT.DEPT_TITLE%TYPE;
+    V_NATIONAL_CODE LOCATION.NATIONAL_CODE%TYPE;
+    TEAM VARCHAR2(20);
+begin
+     SELECT EMP_ID, EMP_NAME, DEPT_TITLE, NATIONAL_CODE
+    into V_EMPID,V_ENAME,V_DEPT_TITLE,V_NATIONAL_CODE
+    FROM EMPLOYEE E, DEPARTMENT D, LOCATION L
+     WHERE E.DEPT_CODE= D. DEPT_ID
+     AND D.LOCATION_ID= L.LOCAL_CODE
+    AND EMP_ID= '&EMP_ID';
+    if(V_NATIONAL_CODE='KO') THEN TEAM :='국내팀';
+    ELSE TEAM :='해외팀';
+    END IF;
+     DBMS_OUTPUT.PUT_LINE('사번: ' || V_EMPID);
+    DBMS_OUTPUT.PUT_LINE('이름: ' || V_ENAME);
+    DBMS_OUTPUT.PUT_LINE('부서: ' || V_DEPT_TITLE);
+     DBMS_OUTPUT.PUT_LINE('소속: ' || TEAM);
+end;
+/
+-- IF ~ THEN ~ ELSIF~ ELSE ~ END IF
+DECLARE
+    SCORE INT;
+    GRADE VARCHAR2(2);
+begin
+    SCORE := '&SCORE';
+    
+    IF SCORE >= 90 THEN GRADE :='A';
+    ELSIF SCORE >= 80 THEN GRADE :='B';
+    ELSIF SCORE >= 70 THEN GRADE :='C';
+    ELSIF SCORE >= 60 THEN GRADE :='D';
+    ELSE GRADE := 'F';
+    END IF;
+    
+     DBMS_OUTPUT.PUT_LINE('당신의점수는' || SCORE || '점이고,학점은' || GRADE || '학점입니다.');
+end;
+/
+--BASIC LOOP
+ DECLARE
+ N NUMBER := 1;
+ BEGIN
+ LOOP
+ DBMS_OUTPUT.PUT_LINE(N);
+ N := N + 1;
+ IF N > 5 THEN EXIT;
+ END IF;
+ END LOOP;
+ END;
+ /
+
+DECLARE
+
+--FOR LOOP
+ BEGIN
+ FOR N IN 1..5 LOOP
+ DBMS_OUTPUT.PUT_LINE(N);
+ END LOOP;
+ END;
+ /
+ BEGIN
+ FOR N IN REVERSE 1..5 LOOP
+ DBMS_OUTPUT.PUT_LINE(N);
+ END LOOP;
+ END;
+ /
+--while loop
+DECLARE
+ N NUMBER := 1;
+ BEGIN
+ WHILE N <= 5 LOOP
+ DBMS_OUTPUT.PUT_LINE(N);
+ N := N + 1;
+ END LOOP;
+ END;
+ /
+
+--예외처리
+DECLARE
+ AAAAK EXCEPTION;
+ PRAGMA EXCEPTION_INIT(AAAAK, -00001);
+ 
+ BBB_OVERFLOW EXCEPTION;
+ PRAGMA EXCEPTION_INIT(BBB_OVERFLOW, -12899); 
+ -----??
+ 
+ BEGIN
+ UPDATE EMPLOYEE 
+SET EMP_ID='&사번'
+ WHERE EMP_ID= 111; -- 사번 206을 입력한 사번으로 바꾸겠다. 테이블에 이미 있는 사번을 넣으면 예외값 처리된다
+ EXCEPTION
+ WHEN AAAAK
+ THEN DBMS_OUTPUT.PUT_LINE('이미존재하는사번입니다.');
+ WHEN BBB_OVERFLOW
+ THEN DBMS_OUTPUT.PUT_LINE('넘친다!!!');
+ END;
+ /
+ select * from employee;
+ 
+  UPDATE EMPLOYEE 
+SET EMP_ID=1111111111111111
+ WHERE EMP_ID= 111;
+ desc employee;
+ 
+ ----예외처리
+CREATE OR REPLACE PROCEDURE PROC_TEST1
+IS
+ AAAAK EXCEPTION;
+ PRAGMA EXCEPTION_INIT(AAAAK, -00001);
+ 
+ BBB_OVERFLOW EXCEPTION;
+ PRAGMA EXCEPTION_INIT(BBB_OVERFLOW, -01438); -----??
+ 
+ BEGIN
+ UPDATE EMPLOYEE 
+SET EMP_ID= 207
+ WHERE EMP_ID= 300; -- 사번 206을 입력한 사번으로 바꾸겠다. 테이블에 이미 있는 사번을 넣으면 예외값 처리된다
+ EXCEPTION
+ WHEN AAAAK
+ THEN DBMS_OUTPUT.PUT_LINE('이미존재하는사번입니다.');
+  WHEN BBB_OVERFLOW
+ THEN DBMS_OUTPUT.PUT_LINE('넘친다!!!');
+ END;
+ /
+ 
+ exec PROC_TEST1;
+ 
+ 
