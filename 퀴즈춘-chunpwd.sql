@@ -1,0 +1,15 @@
+create table prac_dept(
+DEPARTMENT_NO_P VARCHAR2(10)  NOT NULL ,
+DEPARTMENT_NAME_P VARCHAR2(20) NOT NULL ,
+CATEGORY_P VARCHAR2(20) ,
+OPEN_YN_P CHAR(1),
+CAPACITY_P NUMBER ,
+PRIMARY KEY (DEPARTMENT_NO_P)
+);
+
+create table prac_grade(
+TERM_NO 
+
+
+);
+drop table practice_dept;
