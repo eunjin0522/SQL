@@ -37,3 +37,9 @@ grant create view to chun;
 --revoke 뺏고싶은 권한 명, 롤명 ... from 유저명or 롤명,... : 권한 뺏기
 --connect : 접속관련 권한들로 만들어진 롤명
 --resource : 테이블(객체)관련 권한들로 만들어진 롤명
+
+alter session set "_ORACLE_SCRIPT"=TRUE;
+CREATE USER SEMIMM IDENTIFIED BY khpwd;
+GRANT CONNECT,RESOURCE, UNLIMITED TABLESPACE TO SEMIMM;
+
+
