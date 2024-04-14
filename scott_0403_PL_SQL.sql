@@ -25,6 +25,7 @@ begin
     --where empno=7788; 
     dbms_output.put_line('------ 뒤');
     dbms_output.put_line(v_empno || ' : '||v_empname);
+    commit;
 end;
 /
 
@@ -54,7 +55,7 @@ begin
     for i in 1..v_idx loop
     dbms_output.put_line(v_arr_no(i));
     end loop;
-
+    commit;
 end;
 /
 
@@ -65,6 +66,7 @@ begin
             dbms_output.put_line(i||'* '||j||'   '||i*j);
             end loop;
         end loop;
+        commit;
 end;
 /
 select * from emp;
@@ -79,6 +81,7 @@ BEGIN
     WHERE EMPNO = 7521 ;
     dbms_output.put_line(V_EMPNO);
    -- dbms_output.put_line(V_ENAME);
+   commit;
 END;
 /
 
@@ -91,6 +94,7 @@ BEGIN
     dbms_output.put_line('emp_no : '||e.empno);
     dbms_output.put_line('NAME : '||e.ename);
     dbms_output.put_line('SALARY : '||e.sal);
+    commit;
 end;
 /
 SELECT * FROM USER_TAB_COLUMNS;
@@ -112,7 +116,7 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('sal : '||VO_SAL(IDX));
         
     END LOOP;
-
+    commit;
 END;
 /
 
@@ -134,6 +138,7 @@ SET EMPNO= 300
  THEN DBMS_OUTPUT.PUT_LINE('이미존재하는사번입니다.');
   WHEN BBB_OVERFLOW
  THEN DBMS_OUTPUT.PUT_LINE('넘친다!!!4자리를 넣자');
+     commit;
  END;
 /
 ---
@@ -148,6 +153,7 @@ BEGIN
     into V_ENAME,V_SAL,V_COMM
     from emp
     where empno=V_EMPNO;
+        commit;
 END;
 /
 variable a_name varchar2(100);
