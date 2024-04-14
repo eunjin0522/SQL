@@ -231,9 +231,13 @@ begin
         default
     );
     END LOOP;
+    commit;
 END;
 /
-EXEC PRO_BOARD_INSERT('kh1','title-------',10); --kh1 회원으로 10개 만들기
+
+EXEC PRO_BOARD_INSERT('kh1','title-------',10); 
+select * from board;
+--kh1 회원으로 10개 만들기
 
 ----- 멤버 만들기
 --MEM_ID    NOT NULL VARCHAR2(20)  
@@ -253,7 +257,7 @@ BEGIN
     end loop;
 end;
 /
-exec  PRO_MEMBER('pro','propwd',5);
+exec  PRO_MEMBER('parkpark','propwd',5);
 select * from member;
 
 ---------
