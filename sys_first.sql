@@ -42,4 +42,21 @@ alter session set "_ORACLE_SCRIPT"=TRUE;
 CREATE USER SEMIMM IDENTIFIED BY khpwd;
 GRANT CONNECT,RESOURCE, UNLIMITED TABLESPACE TO SEMIMM;
 
+-- 세미 프젝 계정 만들기
+alter session set "_ORACLE_SCRIPT"=TRUE;
+create user swithme IDENTIFIED BY swithgirl;
+grant connect, resource,unlimited tablespace to SWITHME;
+
+alter session set "_ORACLE_SCRIPT"=TRUE;
+create user demiswithme IDENTIFIED BY swithgirl;
+grant connect, resource,unlimited tablespace to demiswithme;
+
+REVOKE connect, resource FROM swithme;
+
+DROP USER SWITHME;
+
+
+DROP USER SWITHME CASCADE;
+
+commit;
 
